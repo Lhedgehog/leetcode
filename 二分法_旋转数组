@@ -1,0 +1,48 @@
+153. Find Minimum in Rotated Sorted Array
+
+Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+
+(i.e.,  [0,1,2,4,5,6,7] might become  [4,5,6,7,0,1,2]).
+
+Find the minimum element.
+
+You may assume no duplicate exists in the array.
+
+Example 1:
+
+Input: [3,4,5,1,2] 
+Output: 1
+Example 2:
+
+Input: [4,5,6,7,0,1,2]
+Output: 0
+
+补充错误例子：【1，2，3，4】【2，1】【2，3，4，5，1】最后一个是因为没有加上加减号
+所以实际上一共需要考虑四种情况：【1，2，3】 还有【2，1】只对len=2的时候有限，还有【2，3，4，5，1】 【5，2，3，4】这两种情况就是涵盖在下面两种的里面，所以
+即使有长有短也没什么问题。
+
+code:
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        lh = len(nums)
+        l = 0
+        h = lh-1
+        if nums[l] > nums[h]:
+            if lh == 2:
+                return nums[1]
+            while(l<=h):
+                m = (l+h)/2
+                if nums[m] < nums[l] and nums[m] <nums[m-1]:
+                    return nums[m]
+                elif nums[m] < nums[l] and nums[m] > nums[m-1]:
+                    h = m-1
+                elif nums[m] >= nums[l] and nums[m] < nums[m+1]: #教科书式编程一定要注意这个=号需要涵盖到m和l相等的时候，然后还要考虑这个等号怎么放
+                    l = m + 1
+                elif nums[m] >= nums[l] and nums[m] > nums[m+1]:
+                    return nums[m+1]
+        else:
+            return nums[0]
