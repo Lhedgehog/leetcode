@@ -1,0 +1,35 @@
+class Solution:
+    def quick_sort(self,nums,s,t):
+        q = []
+        if s<t:
+            q.append([s,t])
+            while(q!=[]):
+                tem = q.pop(0)
+                s,i = tem[0],tem[0]
+                t,j = tem[1],tem[1]+1
+                while(True):
+                    i = i + 1
+                    while(i<t and nums[i] < nums[s]):
+                        i =  i + 1
+                    j = j -1
+                    while(s<j and nums[j] > nums[s]):
+                        j = j - 1
+                    if i <j:
+                        self.swap(nums,i,j)
+                    else:
+                        break
+                self.swap(nums,s,j)
+                if s<j-1:
+                    q.append([s,j-1])
+                if t>j+1:
+                    q.append([j+1,t])
+    def swap(self,nums,i,j):
+        tem = nums[i]
+        nums[i] = nums[j]
+        nums[j] = tem
+
+a = Solution()
+t = [2,2,3,6]
+l = len(t)-1
+r = a.quick_sort(t,0,l)
+print(t[-2])
