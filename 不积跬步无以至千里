@@ -1,0 +1,13 @@
+class node(object):
+    def __init__(self,n):
+        self.index = n
+        self.child = []
+
+x = node(0)
+print x.child
+x.child.append(1)
+print x.child
+
+print的结果：
+【】
+【1】
