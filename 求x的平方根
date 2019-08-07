@@ -1,0 +1,21 @@
+69.x的平方根
+
+class Solution(object):
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        if x == 1 or x == 2 or x == 3:
+            return 1
+        l = 0
+        h = x/2
+        while(l<=h):
+            mid = (l+h)/2
+            if mid*mid == x:
+                return mid
+            if mid*mid >x:
+                h = mid-1
+            else:
+                l = mid+1
+        return h
