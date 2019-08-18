@@ -1,0 +1,69 @@
+704. 二分查找
+递归版
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        nums.insert(0,0-target)
+        l = len(nums)
+        low = 1
+        high=l-1
+        return self.bn(nums,low,high,target)
+    
+    def bn(self,nums,low,high,target):
+        if low > high:
+            return -1
+        mid = (low + high)/2
+        if target == nums[mid]:
+            return mid-1
+        if target > nums[mid]:
+            return self.bn(nums,mid+1,high,target)
+        else:
+            return self.bn(nums,low,mid-1,target)
+           
+非递归版：
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        nums.insert(0,0-target)
+        l = len(nums)
+        low = 1
+        high=l-1
+        while(low <= high):
+            mid = (low+high)/2
+            if target == nums[mid]:
+                return mid-1
+            if target > nums[mid]:
+                low = mid + 1
+            else:
+                high = mid -1
+        return -1
+ 
+非递归版而且low从零开始版本，这个可以在面试的时候用吧
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        #nums.insert(0,0-target)
+        l = len(nums)
+        low = 0
+        high=l-1
+        while(low <= high):
+            mid = (low+high)/2
+            if target == nums[mid]:
+                return mid
+            if target > nums[mid]:
+                low = mid + 1
+            else:
+                high = mid -1
+        return -1
