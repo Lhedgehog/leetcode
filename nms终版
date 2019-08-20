@@ -1,0 +1,46 @@
+说明一下计算IOU的时候是计算各个框的不是上下左右的坐标，而是最大最小的xy值，没有上下左右之说，只是按照最大最小xy去算的
+
+https://blog.csdn.net/williamyi96/article/details/77996167
+https://blog.csdn.net/shuzfan/article/details/52711706
+
+
+import numpy as np
+dets = np.array([
+                [204, 102, 358, 250, 0.5],
+                [257, 118, 380, 250, 0.7],
+                [280, 135, 400, 250, 0.6],
+                [255, 118, 360, 235, 0.7]])
+thresh = 0.5
+
+def py_cpu_nms(dets, thresh):
+    """Pure Python NMS baseline."""
+    x1 = dets[:, 0]  #xmin
+    y1 = dets[:, 1]  #ymin
+    x2 = dets[:, 2]  #xmax
+    y2 = dets[:, 3]  #ymax
+    scores = dets[:, 4]  #confidence
+
+    areas = (x2 - x1 + 1) * (y2 - y1 + 1)  #the size of bbox
+    order = scores.argsort()[::-1]  #sort bounding boxes by decreasing order, returning array([3, 1, 2, 0])
+
+    keep = []        # store the final bounding boxes
+    while order.size > 0:
+        i = order[0]   #the index of the bbox with highest confidence
+        keep.append(i)    #save it to keep
+        xx1 = np.maximum(x1[i], x1[order[1:]]) #array([ 257.,  280.,  255.])
+        yy1 = np.maximum(y1[i], y1[order[1:]]) #array([ 118.,  135.,  118.])
+        xx2 = np.minimum(x2[i], x2[order[1:]]) #array([ 360.,  360.,  358.])
+        yy2 = np.minimum(y2[i], y2[order[1:]]) #array([ 235.,  235.,  235.])
+
+        w = np.maximum(0.0, xx2 - xx1 + 1)   #array([ 104.,   81.,  104.])
+        h = np.maximum(0.0, yy2 - yy1 + 1)   #array([ 118.,  101.,  118.])
+        inter = w * h   #array([ 12272.,   8181.,  12272.])
+
+        # Cross Area / (bbox + particular area - Cross Area)
+        ovr = inter / (areas[i] + areas[order[1:]] - inter)
+        #reserve all the boundingbox whose ovr less than thresh
+        inds = np.where(ovr <= thresh)[0]
+        order = order[inds + 1]
+
+    return keep
+py_cpu_nms(dets,thresh)
