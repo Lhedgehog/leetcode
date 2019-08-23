@@ -1,0 +1,27 @@
+def convolution(img,kernal_size,kernal):
+    row = len(img)
+    col = len(img[0])
+    feature = [[0 for i in range(row-kernal_size+1)] for j in range(col-kernal_size+1)]
+    for i in range(0,row-kernal_size+1):
+        for j in range(0,col-kernal_size+1):
+            f = 0
+            for i_k in range(kernal_size):
+                for j_k in range(kernal_size):
+                    f = f + kernal[i_k][j_k]*img[i+i_k][j+j_k]
+
+            feature[i][j]=f
+    return feature
+
+img = [
+    [1,2,3,4],
+    [2,3,4,5],
+    [5,6,7,8],
+    [7,8,9,10]
+]
+kernal = [
+    [0,1],
+    [1,0]
+]
+r = convolution(img,2,kernal)
+print (r)
+
