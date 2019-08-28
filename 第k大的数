@@ -1,0 +1,51 @@
+class Solution(object):
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        l = 0
+        h = len(nums)-1
+        index = self.partition(nums,l,h)
+        k = len(nums)-k
+        while(True):
+            if index == k:
+                return nums[index]
+            elif index < k:
+                l = index+1
+                h = h
+                index = self.partition(nums,l,h)
+            else:
+                l = l
+                h = index -1
+                index = self.partition(nums,l,h)
+    def partition(self,nums,l,h):
+        if l < h:
+            i = l
+            j = h+1
+            while(True):
+                i = i+1
+                while(i<h and nums[i]<nums[l]):
+                    i = i+1
+                j = j-1
+                while(j>l and nums[j]>nums[l]):
+                    j = j-1
+                if i <j:
+                    self.swap(nums,i,j)
+                else:
+                    break
+            self.swap(nums,j,l)
+            return j
+        else:
+            return l #这个地方注意加上，和排序不太一样
+
+    def swap(self,nums,i,j):
+        tem = nums[i]
+        nums[i] = nums[j]
+        nums[j] = tem
+
+# a = [3,2,1,5,6,4]
+# x = Solution()
+# z = x.findKthLargest(a,2)
+# print z
