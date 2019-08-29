@@ -1,0 +1,19 @@
+1.上浮的操作是对一个元素，一直上浮对比到他不需要交换为止
+2.下沉也是，一直下沉到不需要操作为止。
+3.在堆排序中，从n/2处进行排序的时候，不是只下沉一半的数量，而是只有一半的元素下沉
+import  heapq
+class Solution(object):
+    def findKthLargest(self,nums,k):
+        l = len(nums)
+        re = []
+        for i in range(k):
+            heapq.heappush(re,nums[i])
+        for j in range(k,l):
+            if nums[j] > re[0]:
+                heapq.heappop(re)
+                heapq.heappush(re,nums[j])
+        return re[0]
+
+# a = [3,2,1,5,6,4]
+# x = Solution()
+# print(x.findk(a,2))
