@@ -1,0 +1,47 @@
+class heap(object):
+    def heapsortIncrease(self,nums):
+        self.buildBigHeap(nums)
+        l = len(nums) - 1
+        while(l>1):
+            self.swap(nums,1,l)
+            l = l-1
+            self.sink(nums,1,l+1)
+        return nums
+
+
+    def buildBigHeap(self,nums):
+        l = len(nums)-1
+        i = l/2
+        while(i>0):
+            self.sink(nums,i,l+1)
+            i = i -1
+
+
+
+    def sink(self,nums,i,l):
+        #l = len(nums)
+        while(2*i<l):
+            j = 2*i
+            if j+1 < l and nums[j+1] > nums[j]:
+                m_i = j+1
+                m_n = nums[j+1]
+            else:
+                m_i = j
+                m_n = nums[j]
+            if nums[i] >=  nums[m_i]:
+                break
+            else:
+                self.swap(nums,i,m_i)
+                i = m_i
+
+
+
+    def swap(self,nums,i,j):
+        tem = nums[i]
+        nums[i] = nums[j]
+        nums[j] = tem
+
+
+a = [0,1,5,3,2,7,8]
+x = heap().heapsortIncrease(a)
+print x
