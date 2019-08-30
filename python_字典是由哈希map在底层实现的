@@ -1,0 +1,3 @@
+python的dict数据结构是用hashmap实现的
+https://foofish.net/python_dict_implements.html
+哈希冲突的时候用的是开放式寻址法
