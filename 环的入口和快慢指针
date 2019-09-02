@@ -1,0 +1,73 @@
+https://www.jianshu.com/p/0c565740a022
+这篇讲清楚了为什么快指针能追上慢指针，以及为什么追上了之后快指针从当前位置出发，而慢指针从起始位置出发再次相遇的位置就是环的入口位置
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def hasCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        if head==None:
+            return False
+        f = head.next
+        s = head
+        while(f!=s):
+            if f!=None and f.next!=None:
+                f = f.next.next
+            else:
+                break
+            if s!=None:
+                s = s.next
+            else:
+                break
+        if s==f and s!=None:
+            return True
+        else:
+            return False
+ 
+ # Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+环的入口，官方解答和上边的不太一样，快指针和慢指针后边要走一样的步数大小才可以
+class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        x = self.hasCycle(head)
+        ##print x
+        if x!=None:
+            s = head
+            f = x
+            c = 0
+            while(s!=f):
+                f = f.next
+                s = s.next
+                c = c+1
+            return s
+        else:
+            return None
+        
+    def hasCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        if head==None:
+            return None
+        f = head
+        s = head
+        while(f!=None and s!=None and f.next!=None):
+            f = f.next.next
+            s = s.next
+            if f==s:
+                return s
+        return None
