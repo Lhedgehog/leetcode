@@ -1,0 +1,11 @@
+python的位移操作是个谜啊
+class Solution(object):
+    def hammingDistance(self, x, y):
+        """
+        :type x: int
+        :type y: int
+        :rtype: int
+        """
+        n = x^y
+        n = bin(n)
+        return n.count("1")
