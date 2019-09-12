@@ -209,5 +209,34 @@ class Solution(object):
         paths=[]
         tree_path(root,[])
         return len(paths)
-                
-                 
+
+这个是最终解
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def pathSum(self, root, sum):
+        """
+        :type root: TreeNode
+        :type sum: int
+        :rtype: int
+        """
+        def dfs(node,val):
+            res = 0
+            if node:
+                if node.val + val == sum:
+                    res = res + 1
+                res += dfs(node.left,node.val+val)
+                res += dfs(node.right,node.val+val)
+            return res 
+        #ans = 0
+        if root:
+            #ans = 
+            return dfs(root,0) + self.pathSum(root.left,sum)+self.pathSum(root.right,sum)
+        else:
+            return 0
+                     
