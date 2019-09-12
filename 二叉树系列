@@ -177,3 +177,37 @@ class Solution(object):
     
         return paths
        
+437路径总和：这是一个超时的写法，但是逻辑是很对的，就是写起来很冗余，这么冗余的写法在面试的时候不占优势，用较简单的写法写出来就好了，这个写法说明了这样
+写是可以的，在回溯的时候不要想太多，还是那个树的逻辑要在里面，只需要考虑树的左右节点还有父亲节点。多做题。
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def pathSum(self, root, s):
+        """
+        :type root: TreeNode
+        :type sum: int
+        :rtype: int
+        """
+        def tree_path(node,path):
+            if node:
+                if node.val == s:
+                    paths.append([node.val])
+                t = []
+                for i in path:
+                    a = i + [node.val]
+                    t.append(a)
+                    if sum(a) == s:
+                        paths.append(t)
+                t.append([node.val])
+                tree_path(node.left,t)
+                tree_path(node.right,t)
+        paths=[]
+        tree_path(root,[])
+        return len(paths)
+                
+                 
