@@ -1,3 +1,43 @@
+104.二叉树最大深度
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if root:
+            return max(1+self.maxDepth(root.left),1+self.maxDepth(root.right))
+        else:
+            return 0
+226.翻转二叉树
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def invertTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        if root:
+            l,r = root.left,root.right
+            root.left = r
+            root.right = l
+            self.invertTree(root.right)
+            self.invertTree(root.left)
+            return root
+            
 617合并二叉树
 # Definition for a binary tree node.
 # class TreeNode(object):
