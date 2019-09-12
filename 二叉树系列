@@ -210,7 +210,7 @@ class Solution(object):
         tree_path(root,[])
         return len(paths)
 
-这个是最终解
+这个是最终解：树的题目就是首先会用这一系列的工具然后梳理出来逻辑
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
