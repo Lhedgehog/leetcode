@@ -1,3 +1,49 @@
+101对称二叉树
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        
+        def is_m(l,r):
+            if (l!=None and r!=None) or (l==None and r==None):
+                if l == None:
+                    return True
+                if l.val == r.val:
+                    return is_m(l.left,r.right) and is_m(l.right,r.left)
+                else:
+                    return False
+            else:
+                return False
+        if root == None:
+            return True
+        else:
+            return is_m(root.left,root.right)
+学习一下这种先判断的技巧
+public boolean isSymmetric(TreeNode root) {
+    return isMirror(root, root);
+}
+
+public boolean isMirror(TreeNode t1, TreeNode t2) {
+    if (t1 == null && t2 == null) return true;
+    if (t1 == null || t2 == null) return false;
+    return (t1.val == t2.val)
+        && isMirror(t1.right, t2.left)
+        && isMirror(t1.left, t2.right);
+}
+
+作者：LeetCode
+链接：https://leetcode-cn.com/problems/symmetric-tree/solution/dui-cheng-er-cha-shu-by-leetcode/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 104.二叉树最大深度
 # Definition for a binary tree node.
 # class TreeNode(object):
