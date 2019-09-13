@@ -1,0 +1,23 @@
+注意需要对动态规划定义清楚，cur那块需要是max
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        l = len(nums)
+        if l == 0:
+            return 0
+        if l == 1:
+            return nums[0]
+        pre = nums[0]
+        cur = max(nums[1],nums[0])
+        i = 2
+        ma = max(pre,cur)
+        for i in range(2,l):
+            t = max(pre+nums[i],cur)
+            ma = max(ma,t)
+            pre = cur
+            cur = t
+        return ma
+            
