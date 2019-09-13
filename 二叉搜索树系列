@@ -23,6 +23,34 @@ class Solution(object):
 
         ba_tree(root)
         return root
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def convertBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: TreeNode
+        """
+        if root == None:
+            return root
+        node = root
+        total = 0
+        s = []
+        while(node or len(s)):
+            while(node):
+                s.append(node)
+                node = node.right
+            t = s.pop()
+            total += t.val
+            t.val = total
+            node = t.left
+
+        return root
 938.二叉搜索树范围的和。
 教科书式二叉搜索树
 给定二叉搜索树的根结点 root，返回 L 和 R（含）之间的所有结点的值的和。
