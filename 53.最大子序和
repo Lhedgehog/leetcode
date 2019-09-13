@@ -1,0 +1,35 @@
+大神的java解法：
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int ans = nums[0];
+        int sum = 0;
+        for(int num: nums) {
+            if(sum > 0) {
+                sum += num;
+            } else {
+                sum = num;
+            }
+            ans = Math.max(ans, sum);
+        }
+        return ans;
+    }
+}
+
+作者：guanpengchn
+链接：https://leetcode-cn.com/problems/maximum-subarray/solution/hua-jie-suan-fa-53-zui-da-zi-xu-he-by-guanpengchn/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+我的动态规划解法
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        l = len(nums)
+        dp = [0 for i in range(l)]
+        dp[0] = nums[0]
+        for i in range(1,l):
+            dp[i] = max(dp[i-1]+nums[i],nums[i])
+        return max(dp)
+            
