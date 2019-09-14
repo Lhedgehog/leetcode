@@ -1,0 +1,72 @@
+438
+https://leetcode-cn.com/problems/find-all-anagrams-in-a-string/solution/hua-dong-chuang-kou-tong-yong-si-xiang-jie-jue-zi-/
+大神的滑动窗口解法
+class Solution(object):
+    def findAnagrams(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: List[int]
+        """
+        windows = {}
+        need = {}
+        for c in p: 
+            need[c] = need.get(c,0)+1
+
+        ans = []
+        le,li = len(s),len(p)
+        l = r = 0
+        while(r<le):
+            if s[r] not in need:
+                windows.clear()
+                l = r = r+1
+            else:
+                windows[s[r]] = windows.get(s[r],0)+1
+                if r-l+1 == li:
+                    if windows == need:
+                        ans.append(l)
+                    windows[s[l]] -= 1
+                    l = l+1
+                r = r+1
+        return ans
+76也是大神的解法，切片不要搞错了，累加进行
+import sys
+class Solution(object):
+    def minWindow(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        windows = {}
+        need = {}
+        for i in t:
+            need[i] = need.get(i, 0) + 1
+        le = len(s)
+        l = r = 0
+        match = 0
+        ans = -1
+        ansl = sys.maxint
+        while (r < le):
+            if match != len(need):
+                if s[r] in need:
+                    windows[s[r]] = windows.get(s[r], 0) + 1
+                    if windows[s[r]] == need[s[r]]:
+                        match += 1
+            r = r + 1
+            while (match == len(need)):
+                if ansl > r - l:
+                    ansl = r - l
+                    ans = l
+                if s[l] not in need:
+                    l = l + 1
+                    continue
+                windows[s[l]] -= 1
+                if windows[s[l]] < need[s[l]]:
+                    match -= 1
+                l = l + 1
+        return '' if ansl == sys.maxint else s[ans:ans+ansl]
+
+x =  Solution()
+c = x.minWindow("ADOBECODEBANC","ABC")
+print c
