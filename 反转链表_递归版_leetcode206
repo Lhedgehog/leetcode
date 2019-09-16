@@ -1,0 +1,45 @@
+把这个过程就想象成那个画图的过程，就是把链表的指针一个个拉回去的过程，递归的妙用，递归的多种方式中的一种
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        def reverse(node,pre):
+            if node:
+                reverse(node.next,node)
+                node.next = pre
+        node = head
+        if node == None:
+            return node
+        while(head.next!=None):
+            head = head.next
+        reverse(node,None)
+        return head
+        
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head == None or head.next == None:
+            return head
+        p = self.reverseList(head.next)
+        head.next.next=head
+        head.next = None
+        return p
+        
